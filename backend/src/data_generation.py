@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pandas as pd
 
 from pydantic import BaseModel
@@ -43,7 +45,9 @@ class Customers:
     people = []
 
     def __init__(self):
-        raw_data: pd.DataFrame = pd.read_csv("../data/people-1000.csv")
+        data_path = Path(__file__).resolve().parent.parent / \
+            "data" / "people-1000.csv"
+        raw_data: pd.DataFrame = pd.read_csv(data_path)
         person_data = raw_data[[
             "Index", "First Name", "Last Name", "Sex", "Email"]]
 
@@ -115,7 +119,9 @@ class Reviews:
     reviews = []
 
     def __init__(self):
-        raw_data = pd.read_csv("../data/customer-reviews-1000.csv")
+        data_path = Path(__file__).resolve().parent.parent / \
+            "data" / "customer-reviews-1000.csv"
+        raw_data = pd.read_csv(data_path)
         review_data = raw_data[[
             "Index", "Review ID", "Product Name", "Rating", "Review Text"]]
 

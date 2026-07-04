@@ -1,7 +1,7 @@
 from fastapi import FastAPI, status, HTTPException
 
 
-from data_generation import *
+from backend.src.data_generation import *
 
 
 customers = Customers()
