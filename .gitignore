@@ -1,0 +1,9 @@
+bin/
+inlcude/
+lib/
+lib64
+pyvenv.cfg
+cache
+share
+__pycache__/
+
