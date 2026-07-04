@@ -1,7 +1,6 @@
 from fastapi import FastAPI, status, HTTPException
 
-
-from backend.src.data_generation import *
+from backend.src.data_generation import Customers, PersonUpdate, Reviews
 
 
 customers = Customers()
@@ -33,7 +32,7 @@ async def route_customer(customer_id: int):
             detail="Customer not found. Index out of bounds."
         )
 
-    return {customers.people[int(customer_id)]}
+    return {"customer": customers.people[int(customer_id)].__dict__}
 
 
 @app.put("/customer/{customer_id}", status_code=status.HTTP_200_OK)
@@ -78,15 +77,3 @@ async def route_review(review_id: int):
 
     # Serializacja do słownika
     return {"review": reviews.reviews[review_id]}
-
-
-# Zaktualizowane operacje GET
-@app.get("/customer/{customer_id}")
-async def route_customer(customer_id: int):
-    if customer_id < 0 or customer_id >= len(customers.people) or customers.people[customer_id] is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Customer not found. Index out of bounds."
-        )
-    # Zwrócenie atrybutów za pomocą __dict__ pozwala na rzutowanie do JSON
-    return {"customer": customers.people[customer_id].__dict__}

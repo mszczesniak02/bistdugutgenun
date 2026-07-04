@@ -18,13 +18,12 @@ def test_read_customer_valid():
 
     data = response.json()
 
-    # Sprawdzenie, czy odpowiedź jest listą
-    assert isinstance(data, list)
-
-    # Sprawdzenie, czy lista nie jest pusta i posiada poprawne pola
-    assert len(data) > 0
-    assert "first_name" in data[0]
-    assert data[0]["index"] == 1  # lub odpowiednia logika dla Twojego indeksu
+    # Odpowiedź ma być obiektem z kluczem "customer"
+    assert isinstance(data, dict)
+    assert "customer" in data
+    assert isinstance(data["customer"], dict)
+    assert data["customer"]["index"] == 1
+    assert "first_name" in data["customer"]
 
 
 def test_read_customer_invalid_out_of_bounds():
